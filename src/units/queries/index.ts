@@ -9,7 +9,7 @@ export default {
     WHERE cunt."state" = 'true'
   ), unitsWithoutContracts AS (
     SELECT unts."id", unts."name", unts."address", tunt."name" as "type" FROM public."Units" unts
-    INNER JOIN public."TypeUnits" tunt ON tunt."id" = unts."type"
+    INNER JOIN public."typeUnits" tunt ON tunt."id" = unts."type"
     WHERE unts."id" NOT IN (SELECT "id" FROM unitsWithContracts)
   )
   SELECT * FROM unitsWithoutContracts`,

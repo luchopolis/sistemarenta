@@ -1,5 +1,6 @@
 import { AutoMap } from '@automapper/classes';
-export class Tenant {
+
+export class TenantReadDTO {
   @AutoMap()
   id: number;
 
@@ -7,10 +8,10 @@ export class Tenant {
   name: string;
 
   @AutoMap()
-  identifier: string;
+  lastname: string;
 
   @AutoMap()
-  lastname: string;
+  identifier: string;
 
   @AutoMap()
   phoneNumber: string;

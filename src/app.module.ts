@@ -3,11 +3,17 @@ import { UnitModule } from './units/unit.module';
 import { ContractModule } from './contractUnits/contractUnits.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TenantModule } from './tenant/tenant.module';
+import { AutomapperModule } from '@automapper/nestjs';
+import { classes } from '@automapper/classes';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     UnitModule,
     ContractModule,
+    AutomapperModule.forRoot({
+      strategyInitializer: classes(),
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -19,6 +25,7 @@ import { TenantModule } from './tenant/tenant.module';
       synchronize: false,
     }),
     TenantModule,
+    UserModule,
   ],
 })
 export class AppModule {}
