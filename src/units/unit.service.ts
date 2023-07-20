@@ -30,4 +30,11 @@ export class UnitService {
     );
     return result;
   }
+
+  async unitsMoreDetailed(date: string) {
+    const result = await this.connection.query(
+      QUERIES.UNITS_EXPIRATION_LIST(date),
+    );
+    return result;
+  }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { UnitService } from './unit.service';
 import { IUnit } from './interfaces';
 import { CreateUnitDto } from './dto/unityDto';
@@ -27,5 +27,25 @@ export class UnitController {
   async availableUnitsList(): Promise<DefaultResponse<IUnit[]>> {
     const listOfUnits = await this.unitService.getAvailableUnits();
     return { data: listOfUnits };
+  }
+
+  @Get('/detailed')
+  async unitsDetailed(@Query() query: { date: string }) {
+    const result = await this.unitService.unitsMoreDetailed(query.date);
+    return result.map((element) => {
+      return {
+        unit: {
+          id: element.unitId,
+          name: element.unitName,
+        },
+        tenant: {
+          id: element.tenantId,
+          name: element.tenantName,
+        },
+        dayPayment: element.dayPayment,
+        daysNear: element.daysNear,
+        expireSoon: element.expireSoon,
+      };
+    });
   }
 }

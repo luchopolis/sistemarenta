@@ -13,4 +13,20 @@ export default {
     WHERE unts."id" NOT IN (SELECT "id" FROM unitsWithContracts)
   )
   SELECT * FROM unitsWithoutContracts`,
+  UNITS_EXPIRATION_LIST: (date: string) => `
+  WITH basicData AS (
+    SELECT
+      u."id" AS "unitId",
+      u."name" AS "unitName",
+      t."id" AS "tenantId",
+      CONCAT(EXTRACT(YEAR FROM '${date}'::DATE), '-', to_char('${date}'::DATE, 'MM'), '-', cunt."dayOfPayment") AS "dayPayment",
+      CONCAT(t."name", ' ', t."lastname") AS "tenantName",
+      ABS(DATE_PART('day', '${date}'::DATE) - DATE_PART('day', CONCAT(EXTRACT(YEAR FROM '${date}'::DATE), '-', to_char('${date}'::DATE, 'MM'), '-', cunt."dayOfPayment")::DATE)) AS "daysNear",
+      CASE WHEN ABS(DATE_PART('day', '${date}'::DATE) - DATE_PART('day', CONCAT(EXTRACT(YEAR FROM '${date}'::DATE), '-', to_char('${date}'::DATE, 'MM'), '-', cunt."dayOfPayment")::DATE)) <= 5 THEN true ELSE false END AS "expireSoon"
+    FROM public."ContractTenantUnit" cunt
+    INNER JOIN public."tenants" t ON cunt."tenant" = t."id"
+    INNER JOIN public."Units" u ON cunt."unit" = u."id"
+    ORDER BY "expireSoon"
+  )
+  SELECT * FROM basicData;`,
 };
