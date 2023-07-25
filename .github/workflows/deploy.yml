@@ -12,9 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Execute bash deploy
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: '52.15.146.227'
-          username: 'ubuntu'
-          key: ${{ secrets.AWS_SECRET }}
-          script: whoami
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_SECRET }}
+          HOSTNAME: ${{ secrets.HOSTNAME }}
+          USER_NAME: ${{ secrets.USER }}
+        run: whoami
