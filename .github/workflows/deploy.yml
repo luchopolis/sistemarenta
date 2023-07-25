@@ -19,4 +19,4 @@ jobs:
           host: 52.15.146.227
           username: ubuntu
           key: ${{ secrets.PRIVATE_KEY }}
-          script: cd /home/proyectsh && deploy.sh
+          script: whoami
