@@ -4,6 +4,8 @@ import {
   IsDate,
   IsBoolean,
   IsOptional,
+  IsNumber,
+  IsPositive,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -28,6 +30,10 @@ export class CreateContractUnitDto {
 
   @IsString()
   dayOfPayment: string;
+
+  @IsNumber()
+  @IsPositive()
+  valueContract: number;
 
   @IsOptional()
   @IsBoolean()

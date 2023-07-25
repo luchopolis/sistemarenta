@@ -11,6 +11,7 @@ export class ContractUnitEntity {
   private _endContract: Date;
   private _tenant: IMainProperties;
   private _unit: IMainProperties;
+  private _valueContract: number;
   private _state: boolean;
 
   constructor(
@@ -20,6 +21,7 @@ export class ContractUnitEntity {
     tenant: IMainProperties,
     unit: IMainProperties,
     state: boolean,
+    valueContract: number,
     id?: number,
   ) {
     this._id = id;
@@ -28,6 +30,7 @@ export class ContractUnitEntity {
     this._endContract = endContract;
     this._tenant = tenant;
     this._unit = unit;
+    this._valueContract = valueContract;
     this._state = state;
   }
 
@@ -55,6 +58,10 @@ export class ContractUnitEntity {
 
   get unit() {
     return this._unit;
+  }
+
+  get valueContract() {
+    return this._valueContract;
   }
 
   get state() {

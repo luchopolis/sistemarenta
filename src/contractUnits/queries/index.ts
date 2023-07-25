@@ -6,12 +6,16 @@ export default {
   },
   SAVE_CONTRACT: (data: ContractUnitEntity) => {
     return `INSERT INTO public."ContractTenantUnit" 
-    (tenant, unit, "dateContract", "endContract", state, "dayOfPayment")
+    (tenant, unit, "dateContract", "endContract", state, "dayOfPayment", "valueContract")
     VALUES ('${data.tenant.id}', '${data.unit.id}', 
       '${data.dateContract}'::DATE, 
       '${data.endContract}'::DATE, 
       '${data.state}', 
-      '${data.dayOfPayment}'
+      '${data.dayOfPayment}',
+      '${data.valueContract}'
     ) RETURNING *`;
+  },
+  CONTRACT_VALUE: (contractId: number) => {
+    return `SELECT "valueContract" FROM public."ContractTenantUnit" WHERE id=${contractId}`;
   },
 };

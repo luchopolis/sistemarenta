@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
@@ -20,6 +20,7 @@ export class ContractUnitService {
       contractData.tenant,
       contractData.unit,
       contractData.state,
+      contractData.valueContract,
     );
 
     const result = await this.connection.query<ICreateContractUnit>(
@@ -27,5 +28,18 @@ export class ContractUnitService {
     );
 
     return result[0];
+  }
+
+  async findContractValue(
+    contractId: number,
+  ): Promise<{ valueContract: number }[]> {
+    const value = await this.connection.query<{ valueContract: number }[]>(
+      QUERIES.CONTRACT_VALUE(contractId),
+    );
+
+    if (value.length === 0)
+      throw new NotFoundException(`The contractUnit ${contractId} not exists`);
+
+    return value;
   }
 }

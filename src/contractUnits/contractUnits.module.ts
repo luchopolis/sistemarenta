@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ContractUnitController } from './contractUnits.controller';
 import { ContractUnitService } from './contractUnits.service';
-import { DataSource } from 'typeorm';
+// import { DataSource } from 'typeorm';
 // import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -9,6 +9,4 @@ import { DataSource } from 'typeorm';
   providers: [ContractUnitService],
   exports: [ContractUnitService],
 })
-export class ContractModule {
-  constructor(private dataSource: DataSource) {}
-}
+export class ContractModule {}

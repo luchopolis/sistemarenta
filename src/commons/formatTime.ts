@@ -14,4 +14,9 @@ export class FormatTimeUtility {
         : date.getUTCDate();
     return `${year}-${month}-${day}`;
   }
+
+  static addDays(date: Date, days: number): string {
+    date.setDate(date.getDate() + days);
+    return FormatTimeUtility.formatTime(date);
+  }
 }
