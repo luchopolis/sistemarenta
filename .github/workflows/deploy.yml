@@ -16,4 +16,6 @@ jobs:
           PRIVATE_KEY: ${{ secrets.AWS_SECRET }}
           HOSTNAME: ${{ secrets.HOSTNAME }}
           USER_NAME: ${{ secrets.USER }}
-        run: whoami
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chomod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} 'whoami'
