@@ -20,4 +20,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
       - name: Execute bash deploy
-        run: cd /home/proyect && sh deploy.sh
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i /path/to/your/private/key.pem ubuntu@ec2-52-15-146-227.us-east-2.compute.amazonaws.com "cd /home/proyect && sh deploy.sh"
