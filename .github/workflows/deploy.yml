@@ -22,4 +22,5 @@ jobs:
       - name: Execute bash deploy
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key  ubuntu@ec2-52-15-146-227.us-east-2.compute.amazonaws.com "echo 'ay dio mio' "
+          cat private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-52-15-146-227.us-east-2.compute.amazonaws.com "cd /home/proyect && sh deploy.sh"
