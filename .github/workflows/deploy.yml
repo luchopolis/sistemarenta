@@ -16,7 +16,7 @@ jobs:
       - name: Execute bash deploy
         uses: appleboy/ssh-action@v1.0.0
         with:
-        host: 52.15.146.227
-        username: ubuntu
-        key: ${{ secrets.PRIVATE_KEY }}
-        script: cd /home/proyectsh && deploy.sh
+          host: 52.15.146.227
+          username: ubuntu
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: cd /home/proyectsh && deploy.sh
