@@ -31,6 +31,7 @@ jobs:
             ssh-add ~/.ssh/id_rsa
             cd /home/proyects/sistemarenta/
             gh repo sync
+            Caballero1121!
             sudo rm -rf node_modules
             yarn install
             yarn build
