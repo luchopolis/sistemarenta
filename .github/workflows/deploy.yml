@@ -20,12 +20,5 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             echo "Kill Running PM2"
-            pm2 delete sistemarenta
-            cd /home/proyects/sistemarenta/
-            git pull origin main
-            sudo rm -rf node_modules
-            yarn install
-            yarn build
-            cd /home/proyect/
-            pm2 start ecosystem.config.js
+            ls -l
           '
