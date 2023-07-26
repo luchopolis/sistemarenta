@@ -9,6 +9,7 @@ export default {
     '${invoice.status}') RETURNING *`;
   },
   INVOICES_BY_STATUS: (status: string) => {
-    return `SELECT * FROM public."Invoices" WHERE status=${status}`;
+    return `SELECT * FROM public."Invoices" 
+    WHERE status=${status}`;
   },
 };
