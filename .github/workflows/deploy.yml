@@ -18,4 +18,21 @@ jobs:
           USER_NAME: ${{ secrets.USER }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} 'sudo su -c ./deploy.sh'
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+            export PATH="$PATH:$HOME/.nvm/versions/node/v18.17.0/bin" 
+            
+            echo "Kill Running PM2 "
+            pm2 delete sistemarenta
+
+            cd /home/proyects/sistemarenta/
+            sudo su -c 'git pull origin main'
+            sudo rm -rf node_modules
+            yarn install
+            yarn build
+
+            cd ..
+            pm2 start ecosystem.config.js
+          '
