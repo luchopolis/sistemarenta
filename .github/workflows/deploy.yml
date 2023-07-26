@@ -18,7 +18,7 @@ jobs:
           USER_NAME: ${{ secrets.USER }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          ssh -i private_key ${USER_NAME}@${HOSTNAME} '
             export PATH="$PATH:/home/ubuntu/.nvm/versions/node/v18.17.0/bin/pm2:/home/ubuntu/.nvm/versions/node/v18.17.0/bin/pm2"
             echo "Kill Running PM2"
             pm2 delete sistemarenta
