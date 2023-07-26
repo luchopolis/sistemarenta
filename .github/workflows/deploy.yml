@@ -28,6 +28,7 @@ jobs:
             pm2 delete sistemarenta
 
             cd /home/proyects/sistemarenta/
+            cat /home/ubuntu/.ssh/id_rsa
             git pull origin main
             sudo rm -rf node_modules
             yarn install
