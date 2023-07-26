@@ -27,6 +27,11 @@ export class TenantController {
     return { data: await this.tenantService.create(createTenantDto) };
   }
 
+  @Get('/test')
+  getTest() {
+    return 'HI WORKING CI/CD';
+  }
+
   @Get()
   findAll() {
     return this.tenantService.findAll();
