@@ -21,5 +21,12 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             export PATH="$PATH:/home/ubuntu/.nvm/versions/node/v18.17.0/bin/pm2:/home/ubuntu/.nvm/versions/node/v18.17.0/bin/pm2"
             echo "Kill Running PM2"
-            ls -l
+            pm2 delete sistemarenta
+            cd /home/proyects/sistemarenta/
+            git pull origin main
+            sudo rm -rf node_modules
+            yarn install
+            yarn build
+            cd /home/proyect/
+            pm2 start ecosystem.config.js
           '
