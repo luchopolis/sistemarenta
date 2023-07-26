@@ -27,6 +27,8 @@ jobs:
             echo "Kill Running PM2"
             pm2 delete sistemarenta
 
+            eval $(ssh-agent)
+            ssh-add ~/.ssh/id_rsa
             cd /home/proyects/sistemarenta/
             git pull origin main
             sudo rm -rf node_modules
