@@ -33,6 +33,6 @@ jobs:
             yarn install
             yarn build
 
-            cd /home/proyect/
+            cd ..
             pm2 start ecosystem.config.js
           '
