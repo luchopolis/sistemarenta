@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN yarn global add @nestjs/cli
 
-COPY package.json yarn.lock ./
+COPY package.json tsconfig.json tsconfig.build.json yarn.lock ./
 
 RUN yarn install
 
