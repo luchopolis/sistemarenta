@@ -8,12 +8,12 @@ COPY package.json tsconfig.json tsconfig.build.json yarn.lock ./
 
 RUN yarn install
 
-RUN yarn build
-
 ARG DATABASEHOST
 ENV DATABASEHOST=${DATABASEHOST}
 
 COPY . .
+
+RUN yarn build
 
 CMD [ "yarn", "start:prod" ]
 EXPOSE 3000
