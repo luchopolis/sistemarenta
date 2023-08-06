@@ -1,5 +1,5 @@
 FROM node:18-alpine
-WORKDIR /app
+WORKDIR /usr/src/app
 
 
 RUN yarn global add @nestjs/cli
@@ -15,5 +15,5 @@ COPY . .
 
 RUN yarn build
 
-CMD [ "yarn", "start:prod" ]
+CMD [ "node", "dist/main" ]
 EXPOSE 3000

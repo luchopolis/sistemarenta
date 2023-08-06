@@ -3,7 +3,7 @@ import { CreateUnitDto } from '../dto/unityDto';
 
 class IUnit extends PartialType(CreateUnitDto) {
   id?: number;
-  type?: string;
+  type?: number;
 }
 
 export { IUnit };

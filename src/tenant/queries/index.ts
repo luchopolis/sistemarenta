@@ -12,4 +12,12 @@ export default {
     return `INSERT INTO public."tenants" (name, identifier,lastname,phonenumber,status) 
     VALUES ('${data.name}','${data.identifier}','${data.lastname}','${data.phoneNumber}','${data.status}') RETURNING *`;
   },
+  SELECT_ALL_TENANTS: () => {
+    return `SELECT "id","name","identifier","lastname","phonenumber","status" FROM public."tenants"`;
+  },
+  GET_BY_ID: (id: number) => {
+    return `SELECT "id","name", "identifier", "lastname","phonenumber","status" FROM public."tenants"
+    WHERE "id" = ${id}
+    `;
+  },
 };

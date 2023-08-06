@@ -29,4 +29,15 @@ export default {
     ORDER BY "expireSoon"
   )
   SELECT * FROM basicData;`,
+  UPDATE_UNIT: (id: number, unit: IUnit) => {
+    let updateSql = ``;
+
+    for (const [key, value] of Object.entries(unit)) {
+      updateSql += `"${key}"='${value}',`;
+    }
+
+    updateSql = updateSql.slice(0, updateSql.length - 1);
+
+    return `UPDATE public."Units" SET ${updateSql} WHERE id = '${id}' returning *`;
+  },
 };

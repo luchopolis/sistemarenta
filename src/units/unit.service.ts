@@ -37,4 +37,9 @@ export class UnitService {
     );
     return result;
   }
+
+  async updateUnit(id: number, unit: IUnit) {
+    const result = await this.connection.query(QUERIES.UPDATE_UNIT(id, unit));
+    return result;
+  }
 }

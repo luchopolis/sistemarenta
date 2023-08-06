@@ -1,9 +1,20 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Query,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { UnitService } from './unit.service';
 import { IUnit } from './interfaces';
 import { CreateUnitDto } from './dto/unityDto';
 
 import { DefaultResponse } from '../commons/SanitizeResponse';
+import { UpdateUnitDto } from './dto/update-unit.dto';
+import { ReadUnitDto } from './dto/read-unit.dto';
 
 @Controller('units')
 export class UnitController {
@@ -47,5 +58,14 @@ export class UnitController {
         expireSoon: element.expireSoon,
       };
     });
+  }
+
+  @Put('/:id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() unitData: UpdateUnitDto,
+  ): Promise<DefaultResponse<ReadUnitDto>> {
+    const result = await this.unitService.updateUnit(id, unitData);
+    return { data: result[0][0] };
   }
 }

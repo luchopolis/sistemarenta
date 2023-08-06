@@ -1,16 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateTenantDto } from './dto/create-tenant.dto';
 import { UpdateTenantDto } from './dto/update-tenant.dto';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
-import { DataSource } from 'typeorm';
+import { DataSource, QueryFailedError } from 'typeorm';
 
 import queries from './queries/index';
 import { ITenantsUnits } from './interfaces/tenants-units.interface';
 import { CreateTenantTDto } from './dto/create-tenantT.dto';
 import { Tenant } from './entities/tenant.entity';
 import { TenantReadDTO } from './dto/read-tenant.dto';
+import { RawQueryException } from 'src/commons/Exceptions/RawQueryException';
 
 @Injectable()
 export class TenantService {
@@ -19,12 +20,24 @@ export class TenantService {
     @InjectMapper() private readonly classMapper: Mapper,
   ) {}
 
-  findAll() {
-    return `This action returns all tenant`;
+  async findAll(): Promise<Tenant[]> {
+    try {
+      const tenantsData = await this.connection.query<Tenant[]>(
+        queries.SELECT_ALL_TENANTS(),
+      );
+      return tenantsData;
+    } catch (ex: unknown) {
+      if (ex.constructor === QueryFailedError) {
+        throw new RawQueryException(ex);
+      }
+
+      throw new InternalServerErrorException(ex);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tenant`;
+  async findOne(id: number): Promise<Tenant> {
+    const entity = await this.connection.query<Tenant>(queries.GET_BY_ID(id));
+    return entity;
   }
 
   update(id: number, updateTenantDto: UpdateTenantDto) {
