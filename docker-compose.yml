@@ -5,8 +5,8 @@ services:
     dockerfile: Dockerfile
     args:
       DATABASEHOST: localhost
-  ports:
-    - '3000:3000'
-  container_name: 'sistemarentad'
-  volumes:
-    - ./dist:/app/dist
+    ports:
+      - '3000:3000'
+    container_name: 'sistemarentad'
+    volumes:
+      - ./dist:/app/dist
